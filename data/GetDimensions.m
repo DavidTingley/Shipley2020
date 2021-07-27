@@ -8,7 +8,7 @@
 function [Nchan, Nx, Ny, Nz, Nt] = GetDimensions(path,fdir,fbase)
 
     try %look for an sbx info file if it's already been converted to sbx
-        info = pipe.io.sbxInfo(path);
+        info = pipe.io.read_sbxinfo(path);
         Nchan = info.nchan;
         Nx = info.sz(1);
         Ny = info.sz(2);

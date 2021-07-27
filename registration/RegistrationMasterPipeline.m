@@ -1,18 +1,19 @@
 timerval = tic;
 %% Initilize
-javaaddpath 'C:\Program Files\MATLAB\R2018a\java\mij.jar'
-javaaddpath 'C:\Program Files\MATLAB\R2018a\java\ij-1.52a.jar'
-javaaddpath 'C:\Users\LehtinenLab\Dropbox\AndermannLab\users\Fred\TurboRegHL_.jar'
+javaaddpath 'D:\User\tingley\Dropbox\code\Shipley2020\mij.jar'
+javaaddpath 'D:\User\tingley\Dropbox\code\Shipley2020\ij-1.52a.jar'
+javaaddpath 'D:\User\tingley\Dropbox\code\Shipley2020\TurboRegHL_.jar'
+javaaddpath 'D:\User\tingley\Dropbox\code\Shipley2020\MultiStackReg1.45_.jar'
 
 %put in some identifying information
-mouse = '0309-0721-009';
-date = '200813'; %YYMMDD format
-run = 2;
+mouse = 'PK16';
+date = '210719'; %YYMMDD format
+run = 1;
 ftype = 'sbx';
-server = 'Pythagoras'; %nickname for server/drive name
-fbase = '0309-0721-009_08132020_post_IP_LiCl'; %file name of the tif.frames folder
-opttype = 'none'; %'none' if using piezo, 'affine' if using optitune
-refchannel = 1; %1 = red, 2 = green
+server = 'sweetness'; %nickname for server/drive name
+fbase = 'PK16_210719_001'; %file name of the tif.frames folder
+opttype = 'affine'; %'none' if using piezo, 'affine' if using optitune
+refchannel = 2; %1 = red, 2 = green
 
 fdir = pipe.lab.datedir(mouse,date,server);
 path = pipe.lab.datapath(mouse,date,run,ftype,server);

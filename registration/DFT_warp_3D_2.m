@@ -13,15 +13,15 @@ function DFT_warp_3D_2(path, shiftpath, refchannel, scale, Nchunks, tforms_optot
     parse(p,varargin{:});
     p = p.Results;
 
-    info = pipe.io.sbxInfo(path);
+    info = pipe.io.read_sbxinfo(path);
     fdir = fileparts(path);
     
     Nx = info.sz(1) - p.edges(3) - p.edges(4);
     Ny = info.sz(2) - p.edges(1) - p.edges(2);
-    Nz = size(info.otwave,2);
+    Nz = info.otlevels;
     
     if isempty(p.Nt)
-        p.Nt = info.nframes / numel(info.otwave);
+        p.Nt = info.nframes / info.otlevels;
     end
         
     chunkframes = Nz*floor(p.Nt / Nchunks);
