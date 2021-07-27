@@ -8,8 +8,8 @@ function zproj_mean = MakeSBXall(path,shiftpath, varargin)
     addOptional(p,'optotune','true');
     addOptional(p,'refchannel',2);
     
-    info_sbx = pipe.io.sbxInfo(path);
-    Nz = size(info_sbx.otwave,2);    
+    info_sbx = pipe.io.read_sbxinfo(path);
+    Nz = info_sbx.otlevels;    
     addOptional(p,'proj_range',round(0.25*Nz):round(0.75*Nz));
     
     parse(p,varargin{:});
