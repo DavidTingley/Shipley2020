@@ -18,21 +18,21 @@ javaaddpath 'D:\User Folders\tingley\Dropbox\code\Shipley2020\MultiStackReg1.45_
 
 %put in some identifying information
 mouse = 'DT1';
-date = '200'; %YYMMDD format
-run = 1:77;
+date = '210811'; %YYMMDD format
+run = 61;
 ftype = 'sbx';
 server = 'nasquatch'; %nickname for server/drive name
-fbase = 'DT1_200'; %file name of the tif.frames folder
+fbase = 'DT1_210811'; %file name of the tif.frames folder
 opttype = 'affine'; %'none' if using piezo, 'affine' if using optitune
 refchannel = 1; %1 = red, 2 = green
 
-folder = pwd;%pipe.lab.rundir(mouse, date, run(1), server);
+folder = pipe.lab.rundir(mouse, date, run(1), server);
 
 
 
 if length(run) > 1
    % need to merge all
-   mkdir aligned
+   mkdir runs_split
    
    for r = 1:length(run)
        temp = pipe.io.read_sbx([mouse '_' date '_' num2str(run(r),'%0.3d') '.' ftype],1,-1,1,[]);
@@ -86,6 +86,3 @@ zproj_mean = MakeSBXall(filepath,shiftfilepath,'refchannel',refchannel);
 
 savefilepath = strcat(pipe.lab.rundir(mouse,date,run,server),'_',proj_type,'_zproj.tif');
 write2chanTiff(uint16(zproj_mean),savefilepath);
-
-% delete merge non-aligned file
-delete([folder '\' mouse '_' date '_merge.' ftype])
