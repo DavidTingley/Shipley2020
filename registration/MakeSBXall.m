@@ -7,6 +7,7 @@ function zproj_mean = MakeSBXall(path,shiftpath, varargin)
     addOptional(p,'lineshift',0);
     addOptional(p,'optotune','true');
     addOptional(p,'refchannel',2);
+    addOptional(p,'fileFmt','sbx');
     
     info_sbx = pipe.io.read_sbxinfo(path);
     Nz = info_sbx.otlevels;    
@@ -15,7 +16,7 @@ function zproj_mean = MakeSBXall(path,shiftpath, varargin)
     parse(p,varargin{:});
     p = p.Results;
     
-
+    fileFmt = p.fileFmt;
     
     fdir = fileparts(path);
     
@@ -134,8 +135,10 @@ function zproj_mean = MakeSBXall(path,shiftpath, varargin)
     info = SpoofSBXinfo3D(Nx,Ny,Nz,p.Nt,Nc);
     
     %open regwriter object for writing z-interpolated figure
-    rw = pipe.io.RegWriter(path,info,'.sbxall',true);
-    w = waitbar(0,'writing sbxall');
+    if strcmp(fileFmt,'sbx')
+        rw = pipe.io.RegWriter([path '_aligned'],info,'.sbxall',true);
+        w = waitbar(0,'writing  aligned sbx');
+    end
     for i = 1:p.Nt
         %read the volume
         raw_vol = pipe.imread(path,Nz*(i-1)+1, Nz,p.pmt,[]);
@@ -190,13 +193,17 @@ function zproj_mean = MakeSBXall(path,shiftpath, varargin)
         reg_vol_masked = uint16(reg_vol_masked);
 
         %write volume to .sbxz file
-        rw.write(reg_vol_masked);
+        if strcmp(fileFmt,'sbx')
+            rw.write(reg_vol_masked);
+        elseif strcmp(fileFmt,'tif')
+            pipe.io.write_tiff(reg_vol_masked,[path]);
+        end
         waitbar(i/p.Nt);
 
         %display an update every 10 volumes written
         if mod(i,10) == 0
             t = toc;
-            fprintf('written %d volumes to .sbxall in %4.2f seconds\n',i,t);
+            fprintf('written %d volumes to aligned .sbx in %4.2f seconds\n',i,t);
             tic
         end
     end

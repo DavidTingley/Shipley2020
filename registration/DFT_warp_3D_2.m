@@ -137,7 +137,7 @@ function DFT_warp_3D_2(path, shiftpath, refchannel, scale, Nchunks, tforms_optot
     
     %save the DFT and optotune transformations
     if p.save
-        save(shiftpath,'RS','CS','ZS','RS_chunk','CS_chunk','ZS_chunk','intermediate_shifts','scale','tforms_optotune_full','ref_all','-mat');
+        save(shiftpath,'RS','CS','ZS','RS_chunk','CS_chunk','ZS_chunk','intermediate_shifts','scale','tforms_optotune_full','ref_all','-mat','-v7.3');
     end
     close(H);
 end
