@@ -136,7 +136,7 @@ function zproj_mean = MakeSBXall(path,shiftpath, varargin)
     
     %open regwriter object for writing z-interpolated figure
     if strcmp(fileFmt,'sbx')
-        rw = pipe.io.RegWriter([path '_aligned'],info,'.sbxall',true);
+        rw = pipe.io.RegWriter([path '_aligned'],info,'.sbxall',true,'w');
         w = waitbar(0,'writing  aligned sbx');
     end
     for i = 1:p.Nt
