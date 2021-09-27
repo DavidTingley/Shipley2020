@@ -17,18 +17,18 @@ javaaddpath 'D:\User Folders\tingley\Dropbox\code\Shipley2020\MultiStackReg1.45_
 
 javaaddpath 'D:\Users\tingley\Dropbox\code\Shipley2020\mij.jar'
 javaaddpath 'D:\Users\tingley\Dropbox\code\Shipley2020\ij-1.52a.jar'
-javaaddpath 'D:\Users\tingley\Dropbox\code\Shipley2020\TurboRegHL_.jar'
+javaaddpath 'D:\Users\tingley\Dropbox\code\Shipley2020\TurboRegHL_.jar'vid 
 javaaddpath 'D:\Users\tingley\Dropbox\code\Shipley2020\MultiStackReg1.45_.jar'
 
 
 
 %put in some identifying information
-mouse = 'DT1';
-date = '100'; %YYMMDD format
-run = 1:77;
+mouse = 'PK22';
+date = '210921'; %YYMMDD format
+run = 1;
 ftype = 'sbx';
 server = 'nasquatch'; %nickname for server/drive name
-fbase = 'DT1_100'; %file name of the tif.frames folder
+fbase = 'PK22_210921_adjusted'; %file name of the tif.frames folder
 opttype = 'affine'; %'none' if using piezo, 'affine' if using optitune
 refchannel = 1; %1 = red, 2 = green
 
@@ -67,7 +67,7 @@ if length(run) > 1
 
    save([folder '\' mouse '_' date '_merge.mat'] ,'info')
 else
-    filepath = [folder '\' mouse '_' date '_' num2str(run,'%0.3d'), '.' ftype];%pipe.lab.datapath(mouse,date,run,ftype,server);
+    filepath = [folder '\' mouse '_' date '_' num2str(run,'%0.3d'), '_adjusted.' ftype];%pipe.lab.datapath(mouse,date,run,ftype,server);
 
 end
 
@@ -76,7 +76,7 @@ fdir = pipe.lab.datedir(mouse,date,server);
 [Nchan, Nx, Ny, Nz, Nt] = GetDimensions(filepath,fdir,fbase);
 
 scale = 3;
-chunksize = 200; %don't go over 20
+chunksize = 20; %don't go over 20
 Nchunks = round(Nt/chunksize);
 proj_range = 1:Nz;
 proj_type = 'mean'; % 'max', 'median', 'mean'
